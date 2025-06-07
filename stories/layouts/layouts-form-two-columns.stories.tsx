@@ -13,10 +13,10 @@ import {
 import { Separator } from '../../src/separator';
 import { FileTrigger, Group } from 'react-aria-components';
 import { DropZone } from '../../src/dropzone';
-import { Icon } from '../../src/icon';
 import { Heading } from '../../src/heading';
 import { Avatar } from '../../src/avatar';
 import { DatePicker, DatePickerInput } from '../../src/date-picker';
+import { ImageIcon } from '../../src/icons/outline/image';
 
 const meta = {
   title: 'Layouts/Form/Two Columns',
@@ -37,12 +37,10 @@ export default meta;
 export const TwoColumns = () => {
   return (
     <div className="mx-auto max-w-7xl px-4 py-24 sm:px-6 sm:py-32 lg:px-8">
-      <Form className="mx-auto grid gap-x-8 space-y-12 sm:grid-cols-3">
+      <Form className="mx-auto grid space-y-12 gap-x-8 sm:grid-cols-3">
         <LabeledGroup className="col-span-full grid grid-cols-subgrid gap-y-6">
           <div className="space-y-1">
-            <Label displayLevel={2} className="leading-7">
-              Profile
-            </Label>
+            <Label displayLevel={2}>Profile</Label>
             <Text>This is how others will see you on the site.</Text>
           </div>
 
@@ -63,8 +61,7 @@ export const TwoColumns = () => {
               <div className="flex items-center gap-x-6">
                 <Avatar
                   className="size-14 self-center rounded-full"
-                  src="https://images.unsplash.com/photo-1601412436009-d964bd02edbc?q=80&auto=format&fit=facearea&facepad=3&w=256&h=256"
-                  alt="Jessica Campbell"
+                  alt="J C"
                 ></Avatar>
 
                 <div className="space-y-1">
@@ -83,35 +80,19 @@ export const TwoColumns = () => {
               <DropZone className="w-full">
                 <div className="flex flex-1 flex-col gap-2 py-6">
                   <div className="flex flex-1 justify-center">
-                    <Icon>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="1em"
-                        height="1em"
-                        viewBox="0 0 20 20"
-                        className="size-10 text-muted/50"
-                      >
-                        <path
-                          fill="currentColor"
-                          d="M18 3H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1m-4.75 3.5a1.25 1.25 0 1 1 0 2.5a1.25 1.25 0 0 1 0-2.5M4 14l3.314-7.619l3.769 6.102l3.231-1.605L16 14z"
-                        ></path>
-                      </svg>
-                    </Icon>
+                    <ImageIcon className="text-muted size-10 stroke-1" />
                   </div>
-                  <div className="flex flex-1">
+                  <div className="flex flex-col items-center">
+                    <Text>Drag and drop to upload</Text>
+                    <Text>PNG, JPG, GIF up to 10MB</Text>
+                  </div>
+
+                  <div className="flex justify-center pt-2">
                     <FileTrigger>
-                      <Button
-                        variant="unstyle"
-                        className="text-nowrap text-base/6 font-semibold text-accent sm:text-sm/6"
-                      >
-                        Upload a file
+                      <Button variant="outline" size="sm">
+                        Browser files
                       </Button>
                     </FileTrigger>
-                    &nbsp;
-                    <Text>or drag and drop</Text>
-                  </div>
-                  <div className="flex flex-1 justify-center">
-                    <Text>PNG, JPG, GIF up to 10MB</Text>
                   </div>
                 </div>
 
@@ -121,14 +102,16 @@ export const TwoColumns = () => {
 
             <TextField className="sm:col-span-4" name="company_website">
               <Label>Company website</Label>
-              <div className="flex">
-                <span className="flex items-center rounded-s border border-e-0 px-2.5 text-base/6 text-foreground sm:text-sm/6">
+              <div
+                className="group grid grid-cols-[auto_1fr]"
+                data-ui="control"
+              >
+                <span className="text-foreground col-start-1 row-start-1 grid place-content-center ps-2.5 text-base/6 group-has-autofill:z-10 sm:text-sm/6">
                   https://
                 </span>
                 <Input
-                  type="text"
                   placeholder="www.example.com"
-                  className="rounded-s-none"
+                  className="col-span-full row-start-1 ps-16 sm:ps-[--spacing(15)]"
                   autoComplete="email"
                 />
               </div>
@@ -153,9 +136,7 @@ export const TwoColumns = () => {
 
         <LabeledGroup className="col-span-full grid grid-cols-subgrid gap-y-6">
           <div className="space-y-1">
-            <Label displayLevel={2} className="leading-7">
-              Account
-            </Label>
+            <Label displayLevel={2}>Account</Label>
             <Text>
               Update your account settings. Set your preferred language and
               timezone.
