@@ -57,20 +57,45 @@ const meta = {
 
 export default meta;
 
-export const BasicExample = () => {
-  return (
+// Helper to render menu items from args
+function renderMenuItems(items) {
+  return items.map((item, idx) => {
+    if (item.type === 'separator') {
+      return <MenuSeparator key={`sep-${idx}`} />;
+    }
+    return (
+      <MenuItem
+        key={item.key || idx}
+        {...item.props}
+        href={item.href}
+        target={item.target}
+      >
+        {item.children}
+      </MenuItem>
+    );
+  });
+}
+
+// CSF3 Basic story
+export const Basic = {
+  render: (args) => (
     <MenuTrigger>
-      <MenuButton>Actions</MenuButton>
+      <MenuButton {...args.menuButtonProps}>Actions</MenuButton>
       <MenuPopover>
-        <Menu>
-          <MenuItem>Copy</MenuItem>
-          <MenuItem>Cut</MenuItem>
-          <MenuItem>Paste</MenuItem>
-          <MenuItem>Delete</MenuItem>
-        </Menu>
+        <Menu {...args.menuProps}>{renderMenuItems(args.items)}</Menu>
       </MenuPopover>
     </MenuTrigger>
-  );
+  ),
+  args: {
+    menuButtonProps: {},
+    menuProps: {},
+    items: [
+      { key: 'copy', children: 'Copy' },
+      { key: 'cut', children: 'Cut' },
+      { key: 'paste', children: 'Paste' },
+      { key: 'delete', children: 'Delete' },
+    ],
+  },
 };
 
 export const MenuButtons = () => {
@@ -89,36 +114,27 @@ export const MenuButtons = () => {
   );
 };
 
-export const DisabledState = () => {
-  return (
-    <MenuTrigger>
-      <MenuButton isDisabled>Actions</MenuButton>
-      <MenuPopover>
-        <Menu>
-          <MenuItem>Copy</MenuItem>
-          <MenuItem>Cut</MenuItem>
-          <MenuItem>Paste</MenuItem>
-          <MenuItem>Delete</MenuItem>
-        </Menu>
-      </MenuPopover>
-    </MenuTrigger>
-  );
+// Example: DisabledState reuses Basic.args
+export const DisabledState = {
+  ...Basic,
+  args: {
+    ...Basic.args,
+    menuButtonProps: { isDisabled: true },
+  },
 };
 
-export const DisabledItems = () => {
-  return (
-    <MenuTrigger>
-      <MenuButton>Actions</MenuButton>
-      <MenuPopover>
-        <Menu>
-          <MenuItem>Copy</MenuItem>
-          <MenuItem>Cut</MenuItem>
-          <MenuItem>Paste</MenuItem>
-          <MenuItem isDisabled>Delete</MenuItem>
-        </Menu>
-      </MenuPopover>
-    </MenuTrigger>
-  );
+// Example: DisabledItems reuses Basic.args
+export const DisabledItems = {
+  ...Basic,
+  args: {
+    ...Basic.args,
+    items: [
+      { key: 'copy', children: 'Copy' },
+      { key: 'cut', children: 'Cut' },
+      { key: 'paste', children: 'Paste' },
+      { key: 'delete', children: 'Delete', props: { isDisabled: true } },
+    ],
+  },
 };
 
 export const PopoverPlacements = () => {
